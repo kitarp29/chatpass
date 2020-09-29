@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import axios from 'axios'
+
 class ActionProvider {
     constructor(createChatBotMessage, setStateFunc) {
       this.createChatBotMessage = createChatBotMessage;
       this.setState = setStateFunc;
     }    
-    greet() {
-      const greetingMessage = this.createChatBotMessage("Hey there!")
-      this.updateChatbotState(greetingMessage)
-    }
+  
     submitHandler(e){
         
         console.log(e)
@@ -20,13 +18,42 @@ class ActionProvider {
              'Content-Type': 'application/json',
            }
        };
-        axios.post('http://ec2-13-232-142-197.ap-south-1.compute.amazonaws.com/signup',this.state,options)
-        .then(response=>{
-            console.log(response);
-        })
-        .catch(error=>{
-            console.log(error);
-        })
+
+    }
+    greet() {
+      const apiUrl = 'https://sv443.net/jokeapi/v2/joke/Any';
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {console.log(data, data.setup,data.delivery);
+          if(data.setup!==undefined)
+          { const greetingMessage = this.createChatBotMessage( data.setup,"\n")
+        this.updateChatbotState(greetingMessage);
+        const reply=this.createChatBotMessage( data.delivery,"\n")
+        this.updateChatbotState(reply);}
+        else{
+          const greetingMessage = this.createChatBotMessage( data.joke)
+        this.updateChatbotState(greetingMessage);
+        }
+        const yeah = this.createChatBotMessage("Wanna hear more?\n🤣😂")
+        this.updateChatbotState(yeah);
+      });
+     
+    }
+    
+    wtf(){
+      const nah = this.createChatBotMessage("Yeah Kya Tutul Putul??\n🤔")
+      this.updateChatbotState(nah);
+      const yeah = this.createChatBotMessage("Say Yes for Jokes")
+        this.updateChatbotState(yeah);
+    };
+    frnds(){
+      const nah = this.createChatBotMessage("😎Aur Beta kaisa lga mera kaam??\nMaja aaya ki nhi??\n\n Nhi aaya toh hum kya kre BC😒\ntmhare lia nhi bnaye h")
+      this.updateChatbotState(nah);
+    }
+
+    thnks(){
+      const nah = this.createChatBotMessage("Thanks for checking my work🤗")
+      this.updateChatbotState(nah);
     }
     updateChatbotState(message) {
    

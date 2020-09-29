@@ -1,14 +1,14 @@
 import { createChatBotMessage } from 'react-chatbot-kit';
 
 const config = { 
-  botName: "Mapie",
-  initialMessages: [createChatBotMessage("Hi! How Can I help you? ")],
+  botName: "Joker",
+  initialMessages: [createChatBotMessage("Want to listen to some Jokes??")],
   customStyles: {
     botMessageBox: {
-      backgroundColor: "#376B7E",
+      backgroundColor: "#008ad3",
     },
     chatButton: {
-      backgroundColor: "#376B7E",
+      backgroundColor: "#008ad3",
     },
   },
 }
